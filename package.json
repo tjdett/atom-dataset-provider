@@ -2,8 +2,16 @@
   "name": "atom-dataset-provider",
   "version": "0.0.1",
   "author": "Tim Dettrick <t.dettrick@uq.edu.au>",
+  "main": "lib/atom-dataset-provider",
   "dependencies": {
     "commander": ">=0.5.2",
     "express": ">=2.5.4"
+  },
+  "devDependencies": {
+    "vows": ">=0.6.1",
+    "should": ">=0.5.1"
+  },
+  "scripts": {
+    "test":   "vows --spec"
   }
 }
