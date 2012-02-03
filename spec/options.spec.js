@@ -4,7 +4,7 @@ var should = require('should');
 
 var optionsParser = require('../lib/atom-dataset-provider/options');
 
-vows.describe('Atom Provider').addBatch({
+vows.describe('CLI Parser').addBatch({
     'the CLI parser': {
       topic: optionsParser,
       "defaults directory to '.'": function(parser) {
