@@ -1,0 +1,4 @@
+#!/usr/bin/env node
+/*:tabSize=2:indentSize=2:noTabs=true:mode=javascript:*/
+
+var provider = require('../lib/atom-dataset-provider');
