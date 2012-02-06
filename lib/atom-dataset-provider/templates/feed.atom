@@ -1,0 +1,21 @@
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <id>{{id}}</id>
+  <title>{{title}}</title>
+  <updated>2011-12-19T14:02:02+10:00</updated>
+  {{#datasets}}
+  <entry>
+    <id>http://mydatagrabber.cmm.uq.edu.au/dataset#my-generated-id-BEEFCAFE0002</id>
+    <author>
+      <name>tatkins</name>
+    </author>
+    <title>tatkins - abcd0002</title>
+    <content/>
+    <link rel="enclosure"
+          href="http://localhost:4272/files/abcd0002.tif"/>
+    <link rel="enclosure"
+          href="http://localhost:4272/files/abcd0002.txt"
+          title="metadata.txt"/>
+    <updated>2011-12-19T14:02:00+10:00</updated>
+  </entry>
+  {{/datasets}}
+</feed>

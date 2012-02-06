@@ -7,12 +7,13 @@ var _ = require('underscore'),
     temp = require('temp'),
     vows = require('vows');
 
-var scanner = require('../lib/atom-dataset-provider/directory-scanner.js');
+
 
 vows.describe('Directory Scanner').addBatch({
     'the Directory Scanner,': {
+      topic: require('../lib/atom-dataset-provider/directory-scanner.js'),
       'when run on an empty directory': {
-        topic: function() {
+        topic: function(scanner) {
           var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
           scanner.scan(testDir, this.callback);
         },
@@ -22,7 +23,7 @@ vows.describe('Directory Scanner').addBatch({
         }
       },
       'when run on a directory with files "a.txt", "b.txt" & "c .txt"': {
-        topic: function() {
+        topic: function(scanner) {
           var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
           var topicCallback = this.callback;
           var testData = _.zip(
@@ -79,7 +80,7 @@ vows.describe('Directory Scanner').addBatch({
         }
       },
       'when run on a directory with files "a.tif" & "a.txt"': {
-        topic: function() {
+        topic: function(scanner) {
           var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
           var topicCallback = this.callback;
           var testData = _.zip(

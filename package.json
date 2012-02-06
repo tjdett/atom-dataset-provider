@@ -8,12 +8,14 @@
     "commander": ">=0.5.2",
     "express": ">=2.5.4",
     "mime": ">=1.2.4",
+    "mustache": ">=0.4.0",
     "underscore": ">=1.3.1"
   },
   "devDependencies": {
     "vows": ">=0.6.1",
     "should": ">=0.5.1",
-    "temp": ">=0.4.0"
+    "temp": ">=0.4.0",
+    "feedme": ">=0.1.0"
   },
   "scripts": {
     "test":   "vows --spec || true"

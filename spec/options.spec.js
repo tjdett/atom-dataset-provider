@@ -2,11 +2,9 @@
 var vows = require('vows');
 var should = require('should');
 
-var optionsParser = require('../lib/atom-dataset-provider/options');
-
 vows.describe('CLI Parser').addBatch({
     'the CLI parser': {
-      topic: optionsParser,
+      topic: require('../lib/atom-dataset-provider/options'),
       "defaults directory to '.'": function(parser) {
         parser.parse("node myapp.js".split(" "));
         should.exist(parser.directory);
