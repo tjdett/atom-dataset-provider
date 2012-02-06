@@ -26,7 +26,7 @@ vows.describe('Directory Scanner').addBatch({
           testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
           topicCallback = this.callback;
           var testData = _.zip(
-            ['a.txt','b.txt','c.txt'],
+            ['a.txt','b.txt','c .txt'],
             _.range(3000, 0, -1000));
           async.forEachSeries(testData, function(v, callback) {
               // Create absolute path for test file
@@ -66,6 +66,7 @@ vows.describe('Directory Scanner').addBatch({
           }
         },
         "should produce datasets in reverse order": function(err, scanResult) {
+          console.dir(scanResult);
           scanResult.should.be.instanceof(Array);
           files = _.chain(scanResult)
             .pluck('files')
@@ -73,7 +74,7 @@ vows.describe('Directory Scanner').addBatch({
             .pluck('href')
             .value();
           // Check file array against given
-          _.each(_.zip(files, ['c.txt','b.txt','a.txt']), function(v) {
+          _.each(_.zip(files, ['c .txt','b.txt','a.txt']), function(v) {
              _.first(v).should.equal(_.last(v));
           });
         }
