@@ -10,10 +10,10 @@ var _ = require('underscore'),
 var scanner = require('../lib/atom-dataset-provider/directory-scanner.js');
 
 vows.describe('Directory Scanner').addBatch({
-    'the Directory Scanner': {
+    'the Directory Scanner,': {
       'when run on an empty directory': {
         topic: function() {
-          testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
+          var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
           scanner.scan(testDir, this.callback);
         },
         "should provide an empty list of datasets": function(err, scanResult) {
@@ -21,10 +21,10 @@ vows.describe('Directory Scanner').addBatch({
           scanResult.should.have.length(0);
         }
       },
-      'when run on a directory with files "a", "b" & "c"': {
+      'when run on a directory with files "a.txt", "b.txt" & "c .txt"': {
         topic: function() {
-          testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
-          topicCallback = this.callback;
+          var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
+          var topicCallback = this.callback;
           var testData = _.zip(
             ['a.txt','b.txt','c .txt'],
             _.range(3000, 0, -1000));
@@ -66,7 +66,6 @@ vows.describe('Directory Scanner').addBatch({
           }
         },
         "should produce datasets in reverse order": function(err, scanResult) {
-          console.dir(scanResult);
           scanResult.should.be.instanceof(Array);
           files = _.chain(scanResult)
             .pluck('files')
@@ -77,6 +76,35 @@ vows.describe('Directory Scanner').addBatch({
           _.each(_.zip(files, ['c .txt','b.txt','a.txt']), function(v) {
              _.first(v).should.equal(_.last(v));
           });
+        }
+      },
+      'when run on a directory with files "a.tif" & "a.txt"': {
+        topic: function() {
+          var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
+          var topicCallback = this.callback;
+          var testData = _.zip(
+            ['a.tif','a.txt'],
+            _.range(2000, 0, -1000));
+          async.forEachSeries(testData, function(v, callback) {
+              // Create absolute path for test file
+              var testFile = path.join(testDir, _.first(v));
+              // Write file
+              fs.writeFile(testFile, 'test', function() {
+                  // Modify timestamp
+                  var newTime = new Date((new Date).getTime()-_.last(v));
+                  fs.utimes(testFile, newTime, newTime, callback);
+              });
+            }, function(err) {
+              scanner.scan(testDir, topicCallback);
+            });
+        },
+        "there should be one dataset": function(err, scanResult) {
+          scanResult.should.be.instanceof(Array);
+          scanResult.should.have.length(1);
+        },
+        "the single dataset should have two files": function(err, scanResult) {
+          _.first(scanResult).files.should.be.instanceof(Array);
+          _.first(scanResult).files.should.have.length(2);
         }
       }
     }
