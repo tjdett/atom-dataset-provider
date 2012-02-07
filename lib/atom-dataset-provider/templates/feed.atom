@@ -1,21 +1,30 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>{{id}}</id>
   <title>{{title}}</title>
-  <updated>2011-12-19T14:02:02+10:00</updated>
+  <updated>{{updated}}</updated>
   {{#datasets}}
   <entry>
-    <id>http://mydatagrabber.cmm.uq.edu.au/dataset#my-generated-id-BEEFCAFE0002</id>
+    <id>{{id}}</id>
     <author>
-      <name>tatkins</name>
+      <name>{{author.name}}</name>
     </author>
-    <title>tatkins - abcd0002</title>
-    <content/>
+    <title>{{author.name}} - {{updated}} ({{files.length}})</title>
+    <content>
+      <div xmlns="http://www.w3.org/1999/xhtml">
+        <ul>
+        {{#files}}
+          <li><a href="{{href}}" type="{{type}}">title</a></li>
+        {{/files}}
+        </ul>
+      </div>
+    </content>
+    {{#files}}
     <link rel="enclosure"
-          href="http://localhost:4272/files/abcd0002.tif"/>
-    <link rel="enclosure"
-          href="http://localhost:4272/files/abcd0002.txt"
-          title="metadata.txt"/>
-    <updated>2011-12-19T14:02:00+10:00</updated>
+          href="{{href}}"
+          title="{{title}}"
+          type="{{type}}"/>
+    {{/files}}
+    <updated>{{updated}}</updated>
   </entry>
   {{/datasets}}
 </feed>
