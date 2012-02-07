@@ -12,9 +12,9 @@
     <content>
       <div xmlns="http://www.w3.org/1999/xhtml">
         <ul>
-        {{#files}}
-          <li><a href="{{href}}" type="{{type}}">title</a></li>
-        {{/files}}
+          {{#files}}
+          <li><a href="{{href}}" type="{{type}}">{{title}}</a></li>
+          {{/files}}
         </ul>
       </div>
     </content>
