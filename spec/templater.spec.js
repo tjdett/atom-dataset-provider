@@ -36,6 +36,10 @@ vows.describe('Templater').addBatch({
               'datasets': [{
                   'author': {'name': 'fred'},
                   'files': [{
+                    'href': 'general/a.tif',
+                    'title': 'a.tif',
+                    'type': 'image/tiff'
+                  }, {
                     'href': 'general/a.txt',
                     'title': 'a.txt',
                     'type': 'text/plain'
@@ -62,15 +66,15 @@ vows.describe('Templater').addBatch({
           should.exist(feed.items);
           feed.items.should.be.length(1);
           var item = _.first(feed.items);
-          item.id.should.match(/^general\/a.txt@1970-01/);
+          item.id.should.match(/^general\/a@1970-01/);
           item.author.name.should.equal('fred');
           item.title.should.match(/^fred - 1970-01-/);
           item.updated.should.equal(feed.updated);
-          with ({enclosure: item.link}) {
+          _.each(item.link, function(enclosure) {
             enclosure.should.have.property('href');
             enclosure.should.have.property('title');
             enclosure.should.have.property('type');
-          }
+          });
         }
       }
     }
