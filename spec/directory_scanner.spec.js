@@ -15,7 +15,7 @@ vows.describe('Directory Scanner').addBatch({
       'when run on an empty directory': {
         topic: function(scanner) {
           var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
-          scanner.scan(testDir, this.callback);
+          scanner.scan(testDir, {}, this.callback);
         },
         "should provide an empty list of datasets": function(err, scanResult) {
           scanResult.should.be.instanceof(Array);
@@ -40,7 +40,7 @@ vows.describe('Directory Scanner').addBatch({
                   fs.utimes(testFile, newTime, newTime, callback);
               });
             }, function(err) {
-              scanner.scan(testDir, topicCallback);
+              scanner.scan(testDir, {}, topicCallback);
             });
         },
         "should provide a list of three datasets": function(err, scanResult) {
@@ -96,7 +96,7 @@ vows.describe('Directory Scanner').addBatch({
                   fs.utimes(testFile, newTime, newTime, callback);
               });
             }, function(err) {
-              scanner.scan(testDir, topicCallback);
+              scanner.scan(testDir, {}, topicCallback);
             });
         },
         "there should be one dataset": function(err, scanResult) {
@@ -107,6 +107,34 @@ vows.describe('Directory Scanner').addBatch({
           _.first(scanResult).files.should.be.instanceof(Array);
           _.first(scanResult).files.should.have.length(2);
         }
+      },
+      'when run on a directory with 10 files with a limit of 3': {
+        topic: function(scanner) {
+          var testDir = temp.mkdirSync('atom-dataset-provider-test-data-');
+          var topicCallback = this.callback;
+          var testData = _.zip(
+            _.map(_.range(1, 11), function(i) { return i+".txt" }),
+            _.range(10000, 0, -1000));
+          async.forEachSeries(testData, function(v, callback) {
+              // Create absolute path for test file
+              var testFile = path.join(testDir, _.first(v));
+              // Write file
+              fs.writeFile(testFile, 'test', function() {
+                  // Modify timestamp
+                  var newTime = new Date((new Date).getTime()-_.last(v));
+                  fs.utimes(testFile, newTime, newTime, callback);
+              });
+            }, function(err) {
+              scanner.scan(testDir, {'limit': 3}, topicCallback);
+            });
+        },
+        "only the three files most recent files should be returned": 
+          function(err, scanResult) {
+            scanResult.should.have.length(3);
+            _.first(scanResult[0].files).href.should.equal('10.txt');
+            _.first(scanResult[1].files).href.should.equal('9.txt');
+            _.first(scanResult[2].files).href.should.equal('8.txt');
+          }
       }
     }
 }).export(module);
