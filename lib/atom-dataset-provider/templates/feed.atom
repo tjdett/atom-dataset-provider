@@ -3,7 +3,13 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
   <id>{{id}}</id>
   <title>{{title}}</title>
-  <updated>{{updated}}</updated>
+  <updated>{{updatedAsTimestamp}}</updated>
+  {{#next}}
+  <link rel="next" href="?{{next}}" />
+  {{/next}}
+  {{#prev}}
+  <link rel="prev" href="?{{prev}}" />
+  {{/prev}}
   {{#datasets}}
   <entry>
     <id>{{id}}</id>
@@ -26,7 +32,7 @@
           title="{{title}}"
           type="{{type}}"/>
     {{/files}}
-    <updated>{{updated}}</updated>
+    <updated>{{updatedAsTimestamp}}</updated>
   </entry>
   {{/datasets}}
 </feed>

@@ -28,6 +28,24 @@ vows.describe('Templater').addBatch({
         should.not.exist(feed.items);
       }
     },
+    'when run with "next" available': {
+      topic: function() {
+        templater.render({
+            'id': 'test',
+            'title': 'test',
+            'datasets': [],
+            'next': function() { return { 'after': 5 } }
+        }, this.callback);
+      },
+      "should produce a valid next relation": function(result) {
+        parser = new FeedMe();
+        parser.write(result);
+        feed = parser.done();
+        should.exist(feed.link);
+        feed.link.rel.should.eql('next');
+        feed.link.href.should.eql('?after=5');
+      }
+    },
     'when run with a single dataset': {
       topic: function() {
         templater.render({

@@ -8,10 +8,16 @@
     </xsl:template>
     <xsl:template match="/atom:feed">
         <h1><xsl:value-of select="atom:title"/></h1>
+        <ul>
+        <xsl:apply-templates select="atom:link"/>
+        </ul>
         <xsl:apply-templates select="atom:entry"/>
     </xsl:template>
     <xsl:template match="atom:entry">
         <h2><xsl:value-of select="atom:title"/></h2>
         <xsl:copy-of select="atom:content"/>
+    </xsl:template>
+    <xsl:template match="atom:link">
+        <li><a href="{./@href}"><xsl:value-of select="@rel"/></a></li>
     </xsl:template>
 </xsl:stylesheet>
