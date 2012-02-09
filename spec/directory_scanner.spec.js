@@ -188,6 +188,27 @@ vows.describe('Directory Scanner').addBatch({
               files[1].href.should.equal('9.txt');
               files[2].href.should.equal('8.txt');
             }
+        },
+        "twice": {
+          topic: function(scanResult) {
+            scanner.scan(scanResult.directory, scanResult.next(), this.callback);
+          },
+          "then the prev() details": {
+            topic: function(scanResult) {
+              scanner.scan(scanResult.directory, scanResult.prev(), 
+                            this.callback);
+            },
+            "the previous three files should be the same": 
+              function(err, scanResult) {
+                scanResult.should.be.instanceof(Object);
+                scanResult.datasets.should.be.instanceof(Array);
+                scanResult.datasets.should.have.length(3);
+                files = _.map(_.pluck(scanResult.datasets, 'files'),_.first);
+                files[0].href.should.equal('7.txt');
+                files[1].href.should.equal('6.txt');
+                files[2].href.should.equal('5.txt');
+              }
+        },
         }
       },
       "and when run just 'before' from next() details": {
