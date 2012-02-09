@@ -1,20 +1,33 @@
 /*:tabSize=2:indentSize=2:noTabs=true:mode=javascript:*/
-var vows = require('vows');
-var should = require('should');
+var vows = require('vows'),
+    should = require('should');
 
+var Options = require('../lib/atom-dataset-provider/options');
+    
 vows.describe('CLI Parser').addBatch({
-    'the CLI parser': {
-      topic: require('../lib/atom-dataset-provider/options'),
-      "defaults directory to '.'": function(parser) {
-        parser.parse("node myapp.js".split(" "));
+    'when a directory is not provided': {
+      topic: function() {
+        return (new Options).parse("node myapp.js".split(" "));
+      },
+      "should default directory to '.'": function(parser) {
         parser.should.have.property('directory', '.');
+      }
+    },
+    'when a directory is provided': {
+      topic: function() {
+        return (new Options)
+                .parse("node myapp.js --directory myDir".split(" "));
       },
-      "takes directory to monitor": function(parser) {
-        parser.parse("node myapp.js --directory myDir".split(" "));
+      '"directory" property should be that string': function(parser) {
         parser.should.have.property('directory', 'myDir');
+      }
+    },
+    'when a port is provided to serve on': {
+      topic: function() {
+        return (new Options)
+                .parse("node myapp.js --port 4000".split(" "));
       },
-      "takes port to serve on": function(parser) {
-        parser.parse("node myapp.js --port 4000".split(" "));
+      '"port" property should be that integer': function(parser) {
         parser.should.have.property('port', 4000);
       },
     }
