@@ -30,6 +30,7 @@
     <link rel="enclosure"
           href="{{href}}"
           title="{{title}}"
+          length="{{length}}"
           type="{{type}}"/>
     {{/files}}
     <updated>{{updatedAsTimestamp}}</updated>

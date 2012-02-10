@@ -12,7 +12,7 @@ vows.describe('Templater').addBatch({
     'when run with an empty list of datasets': {
       topic: function() {
         templater.render({
-            'id': 'test',
+            'id': 'http://example.test/',
             'title': 'test',
             'datasets': []
         }, this.callback);
@@ -22,7 +22,7 @@ vows.describe('Templater').addBatch({
         parser.write(result);
         feed = parser.done();
         feed.type.should.equal('atom');
-        feed.id.should.equal('test');
+        feed.id.should.equal('http://example.test/');
         feed.title.should.equal('test');
         feed.updated.should.match(/^\d{4}-\d\d-\d\dT\d\d:\d\d:\d\d.\d{3}Z$/);
         should.not.exist(feed.items);
@@ -31,7 +31,7 @@ vows.describe('Templater').addBatch({
     'when run with "next" available': {
       topic: function() {
         templater.render({
-            'id': 'test',
+            'id': 'http://example.test/',
             'title': 'test',
             'datasets': [],
             'next': function() { return { 'after': 5 } }
@@ -49,7 +49,7 @@ vows.describe('Templater').addBatch({
     'when run with a single dataset': {
       topic: function() {
         templater.render({
-            'id': 'test',
+            'id': 'http://example.test/',
             'title': 'test',
             'datasets': [{
                 'author': {'name': 'fred'},
@@ -76,7 +76,7 @@ vows.describe('Templater').addBatch({
         feed = parser.done();
         // Check feed details
         feed.type.should.equal('atom');
-        feed.id.should.equal('test');
+        feed.id.should.equal('http://example.test/');
         feed.title.should.equal('test');
         // Feed "updated" should match dataset
         feed.updated.should.match(/^1970-01-\d\dT\d\d:\d\d:\d\d.\d{3}Z$/);
@@ -84,7 +84,7 @@ vows.describe('Templater').addBatch({
         should.exist(feed.items);
         feed.items.should.be.length(1);
         var item = _.first(feed.items);
-        item.id.should.match(/^general\/a@1970-01/);
+        item.id.should.match(new RegExp('^'+feed.id+'general/a@1970-01'));
         item.author.name.should.equal('fred');
         item.title.should.match(/^fred - 1970-01-/);
         item.updated.should.equal(feed.updated);
