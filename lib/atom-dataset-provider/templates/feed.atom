@@ -17,7 +17,7 @@
       <name>{{author.name}}</name>
     </author>
     <title>{{author.name}} - {{updatedAsTimestamp}} ({{files.length}})</title>
-    <content>
+    <content type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">
         <ul>
           {{#files}}
