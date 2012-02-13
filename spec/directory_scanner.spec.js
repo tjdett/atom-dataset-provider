@@ -76,7 +76,18 @@ vows.describe('Directory Scanner').addBatch({
           .pluck('href')
           .value();
         // Check file array against given
-        files.should.eql(['c .txt','b.txt','a.txt']);
+        files.should.eql(['c%20.txt','b.txt','a.txt']);
+      },
+      "should produce legal hrefs": function(err, scanResult) {
+        scanResult.datasets.should.be.instanceof(Array);
+        files = _.chain(scanResult.datasets)
+          .pluck('files')
+          .flatten()
+          .pluck('href')
+          .each(function(href) { 
+              excludedChars = /[ <>"{}|\^\[\]`]/;
+              files.should.not.match(excludedChars);
+          });
       }
     },
     'when run on a directory with files "a.tif" & "a.txt"': {
