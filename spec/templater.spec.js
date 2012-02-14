@@ -84,7 +84,7 @@ vows.describe('Templater').addBatch({
         should.exist(feed.items);
         feed.items.should.be.length(1);
         var item = _.first(feed.items);
-        item.id.should.match(new RegExp('^'+feed.id+'general/a@1970-01'));
+        item.id.should.match(new RegExp('^'+feed.id+'c24842[a-f0-9]+@1970-01'));
         item.author.name.should.equal('fred');
         item.title.should.match(/^fred - 1970-01-/);
         item.updated.should.equal(feed.updated);
