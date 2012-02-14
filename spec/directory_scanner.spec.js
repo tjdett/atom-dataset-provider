@@ -118,6 +118,12 @@ vows.describe('Directory Scanner').addBatch({
       "the single dataset should have two files": function(err, scanResult) {
         _.first(scanResult.datasets).files.should.be.instanceof(Array);
         _.first(scanResult.datasets).files.should.have.length(2);
+      },
+      "the two files should be ordered by title": function(err, scanResult) {
+        _.first(scanResult.datasets).files.should.be.instanceof(Array);
+        _.first(scanResult.datasets).files.should.have.length(2);
+        var titles = _.pluck(_.first(scanResult.datasets).files, 'title');
+        titles.should.eql(['a.tif','a.txt']);
       }
     },
     'when run on a directory with 10 files with a limit of 3': {

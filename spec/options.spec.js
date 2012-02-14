@@ -48,5 +48,16 @@ vows.describe('CLI Parser').addBatch({
       '"title" property should be that string': function(parser) {
         parser.should.have.property('title', "My Feed Title");
       }
+    },
+    'when a group pattern is provided': {
+      topic: function() {
+        return (new Options)
+          .parse("node myapp.js --group-pattern /^(.*)$/".split(" "));
+      },
+      '"groupPattern" property should be that pattern': function(parser) {
+        parser.should.have.property('groupPattern');
+        parser.groupPattern.should.be.an.instanceof(RegExp);
+        parser.groupPattern.should.eql(/^(.*)$/);
+      }
     }
 }).export(module);
