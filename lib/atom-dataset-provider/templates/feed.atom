@@ -15,7 +15,7 @@
     <id>{{relpath}}</id> 
     <tardis:uniqueid>{{id}}</tardis:uniqueid>
     <author>
-      <name>{{relpath1}}</name>
+      <name>{{relpath1.lower()}}</name>
     </author>
     <tardis:experimentTitle>{{relpath3}}</tardis:experimentTitle>
     <title>{{relpath4}}</title>
