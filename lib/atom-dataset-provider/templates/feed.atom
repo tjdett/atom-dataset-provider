@@ -12,7 +12,7 @@
   {{/prev}}
   {{#datasets}}
   <entry>
-    <id>{{relpath}}</id> 
+    <id>/{{relpath1}}/{{relpath2}}/{{relpath3}}/{{relpath4}}</id> 
     <tardis:uniqueid>{{id}}</tardis:uniqueid>
     <author>
       <name>{{relpath1.lower()}}</name>
@@ -24,8 +24,7 @@
       <div xmlns="http://www.w3.org/1999/xhtml">
         <ul>
           {{#files}}
-          
-          <li><a href="{{href}}" type="{{type}}">{{title}}</a></li>
+          <li>{{href}}</li>
           {{/files}}
         </ul>
       </div>
