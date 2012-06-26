@@ -21,7 +21,7 @@
       <div xmlns="http://www.w3.org/1999/xhtml">
         <ul>
           {{#files}}
-          <li><a href="{{href}}" type="{{type}}">{{title}}</a></li>
+          <li><a href="{{href}}" title="{{sha512}}" type="{{type}}">{{title}}</a></li>
           {{/files}}
         </ul>
       </div>
@@ -31,7 +31,8 @@
           href="{{href}}"
           title="{{title}}"
           length="{{length}}"
-          type="{{type}}"/>
+          type="{{type}}"
+          hash="sha-512:{{sha512}}"/>
     {{/files}}
     <updated>{{updatedAsTimestamp}}</updated>
   </entry>
