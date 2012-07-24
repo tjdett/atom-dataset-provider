@@ -53,7 +53,7 @@ vows.describe('Directory Scanner').addBatch({
         topic: function(scanResult) {
           return _.first(scanResult.datasets);
         },
-        'have a list of files with "href", "length", "title" & "type"': 
+        'have a list of files with "href", "length", "sha512", "title" & "type"': 
           function(err, dataset) {
             dataset.should.have.ownProperty('files');
             dataset.files.should.be.instanceof(Array);
@@ -62,6 +62,8 @@ vows.describe('Directory Scanner').addBatch({
             _.first(dataset.files).length.should.equal(4);
             _.first(dataset.files).title.should.be.a('string');
             _.first(dataset.files).type.should.equal('text/plain');
+            _.first(dataset.files).should.have.ownProperty('sha512');
+            _.first(dataset.files).sha512.length.should.equal(128);
           },
         "have an updated time": function(err, dataset) {
           dataset.should.have.ownProperty('updated');

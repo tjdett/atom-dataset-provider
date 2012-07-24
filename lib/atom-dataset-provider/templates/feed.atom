@@ -24,7 +24,10 @@
       <div xmlns="http://www.w3.org/1999/xhtml">
         <ul>
           {{#files}}
+          <!-- As used by MicroTardis - workaround for hyperlinks being processed twice.
           <li>{{href}}</li>
+          -->
+          <li><a href="{{href}}" title="{{sha512}}" type="{{type}}">{{title}}</a></li>
           {{/files}}
         </ul>
       </div>
@@ -38,6 +41,7 @@
           path="{{path}}"
           updated="{{updated}}"
           created="{{created}}"/>
+          hash="sha-512:{{sha512}}"/>
     {{/files}}
     <updated>{{updatedAsTimestamp}}</updated>
     <category scheme="http://mytardis.org.au/ns/ExperimentTitle" term="{{relpath3}}" />

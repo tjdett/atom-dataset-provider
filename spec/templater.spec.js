@@ -56,11 +56,19 @@ vows.describe('Templater').addBatch({
                 'files': [{
                   'href': 'general/a.tif',
                   'title': 'a.tif',
-                  'type': 'image/tiff'
+                  'type': 'image/tiff',
+                  'sha512': 'deadbeefdeadbeefdeadbeefdeadbeef'
+                           +'deadbeefdeadbeefdeadbeefdeadbeef'
+                           +'deadbeefdeadbeefdeadbeefdeadbeef'
+                           +'deadbeefdeadbeefdeadbeefdeadbeef'
                 }, {
                   'href': 'general/a.txt',
                   'title': 'a.txt',
-                  'type': 'text/plain'
+                  'type': 'text/plain',
+                  'sha512': 'beeffeedbeeffeedbeeffeedbeeffeed'
+                           +'beeffeedbeeffeedbeeffeedbeeffeed'
+                           +'beeffeedbeeffeedbeeffeedbeeffeed'
+                           +'beeffeedbeeffeedbeeffeedbeeffeed'
                 }],
                 'updated': new Date(1970, 00, 03)
             }]
@@ -92,6 +100,8 @@ vows.describe('Templater').addBatch({
           enclosure.should.have.property('href');
           enclosure.should.have.property('title');
           enclosure.should.have.property('type');
+          enclosure.should.have.property('hash');
+          enclosure.hash.length.should.equal('sha-512:'.length + 128);
         });
       }
     }
