@@ -14,10 +14,13 @@
   },
   "devDependencies": {
     "docco": ">=0.3.0",
-    "feedme": ">=0.1.0",
+    "feedme": "<0.1.9",
     "should": ">=0.5.1",
     "temp": ">=0.4.0",
-    "vows": ">=0.6.1"
+    "vows": ">=0.6.1",
+    "eventyoshi": ">=0.1.0",
+    "sax": ">=0.4.0",
+    "clarinet": ">=0.7.0"
   },
   "scripts": {
     "test": "vows --spec",

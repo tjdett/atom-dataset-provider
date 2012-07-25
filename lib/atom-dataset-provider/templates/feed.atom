@@ -40,7 +40,7 @@
           type="{{type}}"
           path="{{path}}"
           updated="{{updated}}"
-          created="{{created}}"/>
+          created="{{created}}"
           hash="sha-512:{{sha512}}"/>
     {{/files}}
     <updated>{{updatedAsTimestamp}}</updated>
