@@ -55,13 +55,24 @@ Run `bin/atom-dataset-provider --help` for a full list of options:
 Customising the feed template
 -----------------------------
 
-In `lib/atom-dataset-provider/templates` there is a feed.atom file which you should modify to suit your needs. These
-substitutions are supported:
+In `lib/atom-dataset-provider/templates` there is a feed.atom file which you should modify to suit your local environment. It uses
+the Mustache templating engine. See http://mustache.github.com/mustache.5.html for syntax.
+
+For example, if you are serving up files in this sort of directory structure:
+
+    /data/username/experimentname/datasetname/file.txt
+
+You can do things like this:
+
+    <author>{{relpath2}}</author>
+    <title>{{relpath3}}</title>
+
+These substitutions are supported:
 
 ### Top level
 Use these directly inside a `<feed>` element
 * `{{id}}`: URL of the feed itself
-* `{{title}}`: Title as set by `--title` command line parameter.
+* `{{title}}`: Title as set by `--title` command line parameter (defaults to hostname)
 * `{{updatedAsTimestamp}}`: Age of newest dataset (and hence, newest file), formatted as ISO date.
 * `{{#next}}`: Relative link to *next* page of feed, or nothing.
 * `{{#prev}}`: Relative link to *previous* page of feed, or nothing.
@@ -71,12 +82,13 @@ Use these directly inside a `<feed>` element
 Use these inside an `<entry>` element
 
 * `{{path}}`, `{{path1}}`, `{{relpath}}`, ...: Path properties of the first item in the `{{#files}}` array
-* `{{update}}`: updated time of most recently updated file
-* `{{entrytitle}}`: title computed from `--entry-title--pattern' if given, or first filename 
-* `{{author}}`: Owner of first file
-* `{{id}}`: ?
+* `{{entrytitle}}`: title computed from `--entry-title--pattern` if given, or first filename 
+* `{{author.name}}`: Filesystem username of owner of first file
+* `{{author.uid}}`: Filesystem userid of owner of first file
+* `{{id}}`: Unique ID computed from feed URL, SHA hash (of what?) and updated timestamp. 
+* `{{updated}}`: updated time of most recently updated file, in system time format, eg "Wed Aug 08 2012 05:43:18 GMT+0000 (UTC)"
+* `{{updatedAsTimestamp}}`: Most recently updated file date, formatted as ISO, eg "2012-08-08T05:43:18.000Z"
 * `{{#files}}`: Array of files.
-* `{{updatedAsTimestamp}}`: Most recently updated file date, formatted as ISO.
 
 ### Inside the `{{#files}}` array
 
@@ -90,9 +102,9 @@ Use these inside an `<entry>` element
 * `{{type}}`: MIME type of file, eg "text/plain"
 * `{{title}}`: File name without path, eg "file.txt"
 * `{{length}}`: Size in bytes of file, eg "50"
-* `{{updated}}`: Updated date of file, currently in epoch milliseconds, eg "1343195678000"
+* `{{updated}}`: Updated date of file, in epoch milliseconds, eg "1343195678000"
 * `{{created}}`: Same for creation date (file system dependent)
-* `{{updatedAsTimestamp}}`: Updated date of file, formatted as ISO, eg "2012-08-07T15:57:52.000Z""
+* `{{updatedAsTimestamp}}`: Updated date of file, formatted as ISO 8601, eg "2012-08-07T15:57:52.000Z""
 
 
 [atom-app]: https://github.com/tjdett/mytardis-app-atom

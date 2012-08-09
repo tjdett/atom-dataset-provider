@@ -1,3 +1,5 @@
+{{! This file defines the exact Atom feed that will be produced. Configure it for the specifics of your environment. }}
+{{! See README.md for documentation }}
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="/atom2html.xsl"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:tardis="http://mytardis.org/schemas/atom-import">
@@ -5,28 +7,27 @@
   <title>{{title}}</title>
   <updated>{{updatedAsTimestamp}}</updated>
   {{#next}}
-  <link rel="next" href="?{{next}}" />
+      <link rel="next" href="?{{next}}" />
   {{/next}}
   {{#prev}}
-  <link rel="prev" href="?{{prev}}" />
+      <link rel="prev" href="?{{prev}}" />
   {{/prev}}
   {{#datasets}}
   <entry>
-    <id>/{{relpath1}}/{{relpath2}}/{{relpath3}}/{{relpath4}}</id> 
+    <id>{{relpath1}}</id> 
     <tardis:uniqueid>{{id}}</tardis:uniqueid>
     <author>
-      <name>{{relpath1.lower()}}</name>
+      <name>{{author.name}}</name>
     </author>
     <tardis:experimentTitle>{{relpath3}}</tardis:experimentTitle>
-    <title>{{relpath4}}</title>
+    <title>{{relpath1}}</title>
     <tardis:instrument>{{relpath2}}</tardis:instrument>
     <content type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">
         <ul>
           {{#files}}
-          <!-- As used by MicroTardis - workaround for hyperlinks being processed twice.
-          <li>{{href}}</li>
-          -->
+{{! Commented out due to issues with links getting processed twice (MicroTardis project). }}
+{{! <li>{href}</li> }}
           <li><a href="{{href}}" title="{{sha512}}" type="{{type}}">{{title}}</a></li>
           {{/files}}
         </ul>
@@ -44,7 +45,7 @@
           hash="sha-512:{{sha512}}"/>
     {{/files}}
     <updated>{{updatedAsTimestamp}}</updated>
-    <category scheme="http://mytardis.org.au/ns/ExperimentTitle" term="{{relpath3}}" />
+    <category scheme="http://mytardis.org.au/ns/ExperimentTitle" term="{{relpath1}}" />
   </entry>
   {{/datasets}}
 </feed>
