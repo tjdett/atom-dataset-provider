@@ -14,13 +14,13 @@
   {{/prev}}
   {{#datasets}}
   <entry>
-    <id>{{relpath1}}</id> 
+    <id>{{relpath1}}/{{relpath2}}</id> 
     <tardis:uniqueid>{{id}}</tardis:uniqueid>
     <author>
       <name>{{author.name}}</name>
     </author>
-    <tardis:experimentTitle>{{relpath3}}</tardis:experimentTitle>
-    <title>{{relpath1}}</title>
+    <tardis:experimentTitle>{{relpath1}}</tardis:experimentTitle>
+    <title>{{relpath2}}</title>
     <tardis:instrument>{{relpath2}}</tardis:instrument>
     <content type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">
