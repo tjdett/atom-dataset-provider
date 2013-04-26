@@ -7,7 +7,9 @@ About
 -----
 
 This app provides a tiny web-server for exposing a directory via an Atom feed.
-It is intended to act as a producer for the [MyTardis Atom app][atom-app].
+It is intended to act as a demonstration producer for the [MyTardis Atom app][atom-app].
+
+*Note: This app has previously been described as a reference implementation, which caused confusion. It is not. While the output produced is still correct, the method it uses to generate that output is not suitable for use in a production environment. It may have been previously, however the addition of hash digests for files (which MyTardis now requires) makes the "store nothing" architecture impractical for datasets larger than a few megabytes.*
 
 Platform Support
 ----------------
