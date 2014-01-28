@@ -1,7 +1,13 @@
+## See [stevage](https://github.com/stevage/atom-dataset-provider)'s fork for continued development!
+
+> I'm no longer maintaining this code, or am an active member of the MyTardis community. Take a look at Steve's continued development work. I hear good things about it. -- Tim
+
+
 Atom Dataset Producer
 =====================
 
 [![Build Status](https://secure.travis-ci.org/tjdett/atom-dataset-provider.png)](http://travis-ci.org/tjdett/atom-dataset-provider) [![Abandoned](http://stillmaintained.com/tjdett/atom-dataset-provider.png)](http://stillmaintained.com/tjdett/atom-dataset-provider)
+
 
 About
 -----
