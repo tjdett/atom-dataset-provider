@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <?xml-stylesheet type="text/xsl" href="/atom2html.xsl"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:tardis="http://mytardis.org/schemas/atom-import">
   <id>{{id}}</id>
   <title>{{title}}</title>
   <updated>{{updatedAsTimestamp}}</updated>
@@ -12,16 +12,19 @@
   {{/prev}}
   {{#datasets}}
   <entry>
-    <id>{{id}}</id>
+    <id>/{{relpath1}}/{{relpath2}}/{{relpath3}}/{{relpath4}}</id> 
+    <tardis:uniqueid>{{id}}</tardis:uniqueid>
     <author>
-      <name>{{author.name}}</name>
+      <name>{{relpath1.lower()}}</name>
     </author>
-    <title>{{author.name}} - {{updatedAsTimestamp}} ({{files.length}})</title>
+    <tardis:experimentTitle>{{relpath3}}</tardis:experimentTitle>
+    <title>{{relpath4}}</title>
+    <tardis:instrument>{{relpath2}}</tardis:instrument>
     <content type="xhtml">
       <div xmlns="http://www.w3.org/1999/xhtml">
         <ul>
           {{#files}}
-          <li><a href="{{href}}" title="{{sha512}}" type="{{type}}">{{title}}</a></li>
+          <li>{{href}}</li>
           {{/files}}
         </ul>
       </div>
@@ -32,9 +35,12 @@
           title="{{title}}"
           length="{{length}}"
           type="{{type}}"
-          hash="sha-512:{{sha512}}"/>
+          path="{{path}}"
+          updated="{{updated}}"
+          created="{{created}}"/>
     {{/files}}
     <updated>{{updatedAsTimestamp}}</updated>
+    <category scheme="http://mytardis.org.au/ns/ExperimentTitle" term="{{relpath3}}" />
   </entry>
   {{/datasets}}
 </feed>

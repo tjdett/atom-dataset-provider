@@ -65,10 +65,14 @@ vows.describe('Directory Scanner').addBatch({
             _.first(dataset.files).should.have.ownProperty('sha512');
             _.first(dataset.files).sha512.length.should.equal(128);
           },
-        "have an updated time": function(err, dataset) {
+/* Disabled: We (Microtardis) use milliseconds since epoch, not a time format.
+
+         "have an updated time": function(err, dataset) {
           dataset.should.have.ownProperty('updated');
           dataset.updated.should.be.instanceof(Date);
         }
+*/        
+        
       },
       "should produce datasets in reverse order": function(err, scanResult) {
         scanResult.datasets.should.be.instanceof(Array);
